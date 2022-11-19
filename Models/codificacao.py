@@ -30,7 +30,7 @@ codificacao = {
     "cigarros": #3
     {
         "blends": 0,
-        "bluemaster": 1,
+        "blue master": 1,
         "dunhill": 2,
         "pall mall": 3,
         "prince": 4
