@@ -1,6 +1,6 @@
 codificacao = {
     "cores": #0
-    {
+    { 
         "amarelo": 0,
         "azul": 1,
         "branca": 2,

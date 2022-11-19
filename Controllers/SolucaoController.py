@@ -72,13 +72,37 @@ class SolucaoController:
           if (solucao.individuo[indexCasa+1][0] == codificacao["cores"]["azul"]) or (solucao.individuo[indexCasa-1][0] == codificacao["cores"]["azul"]):
               solucao.incrementarPontuacao()
 
-      # a casa verde fica à esquerda da casa branca
-      # verificando se a casa atual é branca
-      if casa[0] == codificacao["cores"]["branca"]:
-        # a casa branca nao pode ser a primeira, pois nao poderia ter uma casa ao lado esquerdo
-        if indexCasa != 0:
+      
+      # verificando se a casa atual é verde
+      if casa[0] == codificacao["cores"]["verde"]:
+       
+        # a casa verde fica à esquerda da casa branca (4)
+        # a casa verde nao pode ser a ultima, pois nao poderia ter uma casa ao lado direito pra ser a branca
+        if indexCasa != 4:
           # verificando se a casa à esquerda é verde
-          if solucao.individuo[indexCasa - 1][0] ==  codificacao["cores"]["verde"]:
+          if solucao.individuo[indexCasa + 1][0] ==  codificacao["cores"]["branca"]:
             solucao.incrementarPontuacao()
+
+        # O morador da casa verde bebe café(5)
+        # verificando se a bebida da casa é café
+        if casa[2] == codificacao["bebidas"]["café"]:
+            solucao.incrementarPontuacao()
+
+      # verificando se a casa atual é vermelha
+      elif casa[0] == codificacao["cores"]["vermelha"]:
+        
+        # o inglês mora na casa vermelha (1)
+        # verificando se a nacionalidade da casa é inglês
+        if casa[1] == codificacao["nacionalidades"]["inglês"]:
+            solucao.incrementarPontuacao()
+
+
+      # verificando se a casa atual é vermelha
+      elif casa[0] == codificacao["cores"]["amarelo"]:
+        pass
+      # verificando se a casa atual é vermelha
+      elif casa[0] == codificacao["cores"]["azul"]:
+        pass
+        
 
       
