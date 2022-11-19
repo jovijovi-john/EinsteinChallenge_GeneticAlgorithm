@@ -1,7 +1,7 @@
 codificacao = {
     "cores": #0
     { 
-        "amarelo": 0,
+        "amarela": 0,
         "azul": 1,
         "branca": 2,
         "verde": 3,
@@ -27,10 +27,10 @@ codificacao = {
         "leite": 4
     },
 
-    "cigarros":
+    "cigarros": #3
     {
         "blends": 0,
-        "blue master": 1,
+        "bluemaster": 1,
         "dunhill": 2,
         "pall mall": 3,
         "prince": 4

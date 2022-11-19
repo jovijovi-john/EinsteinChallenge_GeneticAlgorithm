@@ -9,7 +9,7 @@ class View:
   def __init__(self):
     self.solucaoController = SolucaoController()
     self.populacaoController = PopulacaoController()
-    self.populacaoInicial = self.populacaoController.gerarPopulacao(100000)
+    self.populacaoInicial = self.populacaoController.gerarPopulacao(1000000)
 
     self.mostrarPopulacaoInicial()
 
@@ -22,7 +22,7 @@ class View:
 
     print(f"\033[1;32m{'===' * 10}\033[m")
     for solucao in self.populacaoInicial.individuos:
-      if (solucao.pontuacao > 5):  
+      if (solucao.pontuacao > 7):  
         print(f"pontuação: {solucao.pontuacao}")
         self.mostrarIndividuo(solucao)
         print(f"\033[1;32m{'===' * 10}\033[m")
