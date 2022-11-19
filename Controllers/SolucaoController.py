@@ -111,10 +111,38 @@ class SolucaoController:
         pass
         
       
-      # O homem que fuma Bluemaster bebe cerveja.
+    
       # verificando se o a casa tem cigarro bluemaster
       if casa[3] == codificacao["cigarros"]["bluemaster"]:
         
+        # O homem que fuma Bluemaster bebe cerveja. (12)
         # verificando se a a casa tem bebida cerveja
         if casa[2] == codificacao["bebidas"]["cerveja"]:
           solucao.incrementarPontuacao()
+
+
+      # verificando se o a casa tem cigarro blends
+      elif casa[3] == codificacao["cigarros"]["blends"]:
+        
+        #O homem que fuma Blends é vizinho do que bebe água (15)
+        if indexCasa == 0:
+
+          # Se o homem que fuma blends mora na primeira casa, então quem bebe água so pode morar na direita
+          # verificando se a casa da direita tem bebida água
+          if (solucao.individuo[indexCasa + 1][2] == codificacao["bebidas"]["água"]):
+            solucao.incrementarPontuacao()
+
+        elif indexCasa == 4:
+
+          # Se o homem que fuma blends mora na ultima casa, então quem bebe água so pode morar na esquerda
+          # verificando se a casa da esquerda tem bebida água
+          if (solucao.individuo[indexCasa - 1][2] == codificacao["bebidas"]["água"]):
+            solucao.incrementarPontuacao()
+        
+        else:
+
+          # Se o homem que fuma blends não mora nem na primeira nem na ultima casa, 
+          # então quem bebe água pode morar na esquerda ou na direita
+          # verificando se a casa da esquerda ou da direita tem bebida água
+          if (solucao.individuo[indexCasa - 1][2] == codificacao["bebidas"]["água"]) or (solucao.individuo[indexCasa + 1][2] == codificacao["bebidas"]["água"]):
+            solucao.incrementarPontuacao()

@@ -10,7 +10,7 @@ proposicoes = {
   9: "O norueguês mora na primeira casa.", X
   10: "O homem que fuma Blends mora ao lado do que tem gatos.",
   11: "O homem que cria cavalos mora ao lado do que fuma Dunhill.",
-  12: "O homem que fuma Bluemaster bebe cerveja.",
+  12: "O homem que fuma Bluemaster bebe cerveja.", X
   13: "O alemão fuma Prince.",
   14: "O norueguês vive ao lado da casa azul.", X
   15: "O homem que fuma Blends é vizinho do que bebe água.",
