@@ -44,11 +44,11 @@ class SolucaoController:
 
     
 
-    #o noruegues mora na primeira casa
+    #o noruegues mora na primeira casa (9)
     if (solucao.individuo[0][1] == codificacao["nacionalidades"]["norueguês"]):
       solucao.incrementarPontuacao()
     
-    #o morador da casa central bebe leite
+    #o morador da casa central bebe leite (8)
     if (solucao.individuo[2][2] == codificacao["bebidas"]["leite"]):
       solucao.incrementarPontuacao()
 
@@ -61,7 +61,7 @@ class SolucaoController:
       ==========================================================
         
     """
-    
+
       # verificando se a casa atual é verde
       if casa[0] == codificacao["cores"]["verde"]:
        
@@ -133,7 +133,6 @@ class SolucaoController:
         if casa[2] == codificacao["bebidas"]["cerveja"]:
           solucao.incrementarPontuacao()
 
-
       # verificando se o a casa tem cigarro blends
       elif casa[3] == codificacao["cigarros"]["blends"]:
         
@@ -192,4 +191,52 @@ class SolucaoController:
         # a pessoa que fuma Pall Mall cria pássaros (6)
         # verificando se a casa tem passáros
         if casa[4] == codificacao["animais"]["pássaros"]:
+          solucao.incrementarPontuacao()
+
+      # verificando se o a casa tem cigarro dunhill
+      elif casa[3] == codificacao["cigarros"]["dunhill"]:
+
+        # O homem que cria cavalos mora ao lado do que fuma Dunhill (11)
+        # Se a primeira casa for a que tem cigarro dunhill
+        if (indexCasa == 0):
+          
+          # Se a casa primeira casa tem cigarro dunhill, então a casa da direita deve ter animal cavalo
+          if (solucao.individuo[indexCasa + 1][4] == codificacao["animais"]["cavalos"]):
+            solucao.incrementarPontuacao()
+
+        # Se casa  que tem cigarro dunhill for a ultima
+        elif (indexCasa == 4):
+          
+          # Se casa  que tem cigarro dunhill for a ultima, então a casa da esquerda deve ter animal cavalo
+          if (solucao.individuo[indexCasa - 1][4] == codificacao["animais"]["cavalos"]):
+            solucao.incrementarPontuacao()
+        
+        else :
+          
+          # Se o homem que fuma dunhill não mora nem na primeira nem na ultima casa, 
+          # então quem tem cavalos pode morar na esquerda ou na direita
+          if (solucao.individuo[indexCasa - 1][4] == codificacao["animais"]["cavalos"]) or (solucao.individuo[indexCasa + 1][4] == codificacao["animais"]["cavalos"]):
+            solucao.incrementarPontuacao()
+
+      
+      """
+        ==========================================================
+                        Verificação das nacionalidades
+        ==========================================================
+      """
+
+      # verificando se a casa tem nacionalidade sueco
+      if (casa[1] == codificacao["nacionalidades"]["sueco"]):
+
+        # O sueco tem cachorros (2)
+        # verificando se na casa tem animal cachorro
+        if (casa[4] == codificacao["animais"]["cachorros"]):
+          solucao.incrementarPontuacao()
+
+      # verificando se a casa tem nacionalidade dinamarquês
+      elif (casa[1] == codificacao["nacionalidades"]["dinamarquês"]):
+        
+        # O dinamarquês bebe chá (3)
+        # verificando se na casa tem bebida chá
+        if (casa[2] == codificacao["bebidas"]["chá"]):
           solucao.incrementarPontuacao()

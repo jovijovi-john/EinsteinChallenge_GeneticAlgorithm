@@ -9,11 +9,11 @@ class View:
   def __init__(self):
     self.solucaoController = SolucaoController()
     self.populacaoController = PopulacaoController()
-    self.populacaoInicial = self.populacaoController.gerarPopulacao(100000)
+    self.terminou = False
+    self.acharPontuacao(15)
 
-    self.mostrarPopulacaoInicial()
 
-  def mostrarPopulacaoInicial(self):
+  def mostrarPopulacaoInicial(self, pontuacao):
     self.clearTerminal()
 
     print(f"\033[1;35m{'===' * 10} \033[m")
@@ -22,10 +22,12 @@ class View:
 
     print(f"\033[1;32m{'===' * 10}\033[m")
     for solucao in self.populacaoInicial.individuos:
-      if (solucao.pontuacao >= 7):  
+      if (solucao.pontuacao >= pontuacao):  
         print(f"pontuação: {solucao.pontuacao}")
         self.mostrarIndividuo(solucao)
         print(f"\033[1;32m{'===' * 10}\033[m")
+        self.terminou = True
+        break
 
   def mostrarIndividuo(self, solucao: Solucao):
     for index, pos in enumerate(solucao.individuo):
@@ -36,3 +38,10 @@ class View:
       Limpa o terminal, seja no windows ou linux
     """
     os.system('cls||clear')
+  
+  def acharPontuacao(self, pontuacao):
+      while True:
+        self.populacaoInicial = self.populacaoController.gerarPopulacao(1000)
+        self.mostrarPopulacaoInicial(pontuacao)
+        if self.terminou == True:
+          break

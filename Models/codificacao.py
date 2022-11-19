@@ -36,7 +36,7 @@ codificacao = {
         "prince": 4
     },
 
-    "animais":
+    "animais": #4
     {
         "cachorros": 0,
         "cavalos": 1,
