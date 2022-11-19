@@ -13,5 +13,5 @@ proposicoes = {
   12: "O homem que fuma Bluemaster bebe cerveja.", X
   13: "O alemão fuma Prince.",
   14: "O norueguês vive ao lado da casa azul.", X
-  15: "O homem que fuma Blends é vizinho do que bebe água.",
+  15: "O homem que fuma Blends é vizinho do que bebe água.", X
 }

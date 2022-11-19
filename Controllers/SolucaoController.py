@@ -42,6 +42,13 @@ class SolucaoController:
       4: animais
     """
 
+    """
+      ==========================================================
+                        Verificação das cores
+      ==========================================================
+        
+    """
+
     #o noruegues mora na primeira casa
     if (solucao.individuo[0][1] == codificacao["nacionalidades"]["norueguês"]):
       solucao.incrementarPontuacao()
@@ -53,64 +60,11 @@ class SolucaoController:
    
     for indexCasa, casa in enumerate(solucao.individuo):
       
-      # verificando se a casa atual é verde
-      if casa[0] == codificacao["cores"]["verde"]:
-       
-        # a casa verde fica à esquerda da casa branca (4)
-        # a casa verde nao pode ser a ultima, pois nao poderia ter uma casa ao lado direito pra ser a branca
-        if indexCasa != 4:
-          # verificando se a casa à esquerda é verde
-          if solucao.individuo[indexCasa + 1][0] ==  codificacao["cores"]["branca"]:
-            solucao.incrementarPontuacao()
-
-        # O morador da casa verde bebe café(5)
-        # verificando se a bebida da casa é café
-        if casa[2] == codificacao["bebidas"]["café"]:
-            solucao.incrementarPontuacao()
-
-      # verificando se a casa atual é vermelha
-      elif casa[0] == codificacao["cores"]["vermelha"]:
-        
-        # o inglês mora na casa vermelha (1)
-        # verificando se a nacionalidade da casa é inglês
-        if casa[1] == codificacao["nacionalidades"]["inglês"]:
-            solucao.incrementarPontuacao()
-
-      # verificando se a casa atual é amarela
-      elif casa[0] == codificacao["cores"]["amarela"]:
-        
-        # O morador da casa amarela fuma Dunhill (7)
-        if casa[3] == codificacao["cigarros"]["dunhill"]:
-            solucao.incrementarPontuacao()
-
-        pass
-   
-      # verificando se a casa atual é azul
-      elif casa[0] == codificacao["cores"]["azul"]:
-        
-        # O norueguês vive ao lado da casa azul (14)
-        
-        # se a casa azul for a primeira
-        if indexCasa == 0:
-          # Se a casa azul for a primeira então a casa da direita deve ter nacionalidade norueguês
-          if (solucao.individuo[indexCasa + 1][1] == codificacao["nacionalidades"]["norueguês"]):
-            solucao.incrementarPontuacao()
-        elif indexCasa == 4:
-          # Se a casa azul for a última então a casa da esquerda deve ter nacionalidade norueguês
-          if (solucao.individuo[indexCasa - 1][1] == codificacao["nacionalidades"]["norueguês"]):
-            solucao.incrementarPontuacao()
-        else:
-
-          """
-            Se a casa azul não é a primeira nem a última 
-            então o norueguês pode estar tanto na esquerda quanto na direita 
-          """
-          if (solucao.individuo[indexCasa - 1][1] == codificacao["nacionalidades"]["norueguês"]) or (solucao.individuo[indexCasa + 1][1] == codificacao["nacionalidades"]["norueguês"]):
-            solucao.incrementarPontuacao()
-          
-        pass
-        
-      
+      """
+        ==========================================================
+                        Verificação dos cigarros
+        ==========================================================
+      """
     
       # verificando se o a casa tem cigarro bluemaster
       if casa[3] == codificacao["cigarros"]["bluemaster"]:
@@ -146,3 +100,11 @@ class SolucaoController:
           # verificando se a casa da esquerda ou da direita tem bebida água
           if (solucao.individuo[indexCasa - 1][2] == codificacao["bebidas"]["água"]) or (solucao.individuo[indexCasa + 1][2] == codificacao["bebidas"]["água"]):
             solucao.incrementarPontuacao()
+
+      # verificando se o a casa tem cigarro prince
+      elif casa[3] == codificacao["cigarros"]["prince"]:
+
+        # O alemão fuma Prince (13)
+        #verificando se a casa tem nacionalidade alemão
+        if casa[1] == codificacao["nacionalidades"]["alemão"]:
+          solucao.incrementarPontuacao()
