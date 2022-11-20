@@ -52,8 +52,8 @@ class View:
   def loopGeracaoInicial(self):
     i = 0
     while True:
-      self.populacaoInicial = self.populacaoController.gerarPopulacaoInicial(100)
-      melhor = self.populacaoController.melhorIndividuo(self.populacaoInicial)
+      self.populacao = self.populacaoController.gerarPopulacaoInicial(100)
+      melhor = self.populacaoController.melhorIndividuo(self.populacao)
       self.mostrarIndividuo(melhor)
         
       print(f"A pontuação do melhor indivíduo da geração {i} é {melhor.pontuacao}")
@@ -63,8 +63,8 @@ class View:
         self.mostrarIndividuo(melhor)
         break
         
-      del self.populacaoInicial.individuos[:]
-      del self.populacaoInicial
+      del self.populacao.individuos[:]
+      del self.populacao
 
   def mostrarPopulacao(self, populacao):
     self.clearTerminal()
