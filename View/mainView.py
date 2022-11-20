@@ -9,9 +9,10 @@ class View:
   def __init__(self):
     self.solucaoController = SolucaoController()
     self.populacaoController = PopulacaoController()
-    self.geracoes = 30
+    self.geracoes = 1000
 
-    self.iniciarGeracoes()
+    # self.iniciarGeracoes()
+    self.loopGeracaoInicial()
 
   def iniciarGeracoes(self):
 
@@ -23,18 +24,47 @@ class View:
     
       # self.mostrarPopulacao(populacao)
       melhor = self.populacaoController.melhorIndividuo(populacao)
+      self.mostrarIndividuo(melhor)
         
       print(f"A pontuação do melhor indivíduo da geração {i} é {melhor.pontuacao}")
-
+      
       if melhor.pontuacao == 15:
         self.mostrarIndividuo(melhor)
         break
+      
+      del melhor.individuo[:]
+      del melhor
+
+     
 
       sobreviventes = self.populacaoController.sobrevivencia25_25(populacao)
       recombinacao = self.populacaoController.recombinacao(sobreviventes)
+      del sobreviventes[:]
+      del sobreviventes
       sobreviventes = self.populacaoController.sobrevivencia50(populacao)
 
+      del populacao.individuos[:]
+      del populacao
       populacao = self.populacaoController.novaGeracao(sobreviventes, recombinacao)
+      del recombinacao[:]
+      del recombinacao
+
+  def loopGeracaoInicial(self):
+    i = 0
+    while True:
+      self.populacaoInicial = self.populacaoController.gerarPopulacaoInicial(100)
+      melhor = self.populacaoController.melhorIndividuo(self.populacaoInicial)
+      self.mostrarIndividuo(melhor)
+        
+      print(f"A pontuação do melhor indivíduo da geração {i} é {melhor.pontuacao}")
+      i = i + 1
+      
+      if melhor.pontuacao == 15:
+        self.mostrarIndividuo(melhor)
+        break
+        
+      del self.populacaoInicial.individuos[:]
+      del self.populacaoInicial
 
   def mostrarPopulacao(self, populacao):
     self.clearTerminal()

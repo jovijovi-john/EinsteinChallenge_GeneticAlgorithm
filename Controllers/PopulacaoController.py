@@ -11,20 +11,28 @@ class PopulacaoController:
   
   def gerarPopulacaoInicial(self, tamanhoPop):
     
-    populacao = []
+    individuos = []
 
     for i in range(tamanhoPop):
       individuo = self.solucaoController.gerarSolucaoAleatoria(i)
-      populacao.append(individuo)
+      individuos.append(individuo)
+      del individuo
 
-    populacao = Populacao(populacao, 0)
+    populacao = Populacao(individuos, 0)
+    del individuos
 
     self.ordenarPopulacao(populacao)
 
     return populacao
 
   def melhorIndividuo(self, populacao: Populacao):
-    return populacao.individuos[0]
+    solucao = populacao.individuos[0]
+    individuos = solucao.individuo.copy()
+
+    melhor = Solucao(individuos, solucao.id)
+    melhor.pontuacao = solucao.pontuacao
+
+    return melhor
 
   def sobrevivencia25_25(self, populacao: Populacao, taxa: int = 50):
     """ 
@@ -84,25 +92,48 @@ class PopulacaoController:
       filho2 = []
 
       for j in range(5): 
-        attr_sobre1 = sobrevivente1[j].copy()
-        attr_sobre2 = sobrevivente2[j].copy()
+        
+        casa_f1 = []
+        casa_f2 = []
 
-        if j < 3:
-          filho1.append(attr_sobre1)
-          filho2.append(attr_sobre2)
-        else: 
-          filho1.append(attr_sobre2)
-          filho2.append(attr_sobre1)
+        for k in range(5):
+          
+          if k < 3:
+            casa_f1.append(sobrevivente1[j][k])
+            casa_f2.append(sobrevivente2[j][k])
+          else:
+            casa_f1.append(sobrevivente2[j][k])
+            casa_f2.append(sobrevivente1[j][k])
+
+        filho1.append(casa_f1)
+        filho2.append(casa_f2)
+      
+      del casa_f1
+      del casa_f2
       
       solucao1 = Solucao(filho1, f"{id_sobrevivente1}_{id_sobrevivente2}")
       solucao2 = Solucao(filho2, f"{id_sobrevivente2}_{id_sobrevivente1}")
+
+      del filho1
+      del filho2
 
       self.solucaoController.fitness(solucao1)
       self.solucaoController.fitness(solucao2)
 
       recombinacao.append(solucao1)
       recombinacao.append(solucao2)
+
+      del sobrevivente1[:]
+      del sobrevivente1
       
+      del sobrevivente2[:]
+      del sobrevivente2
+
+    del sobreviventes_shuffle[:]
+    del sobreviventes_shuffle
+
+    del sobreviventes[:]
+    del sobreviventes
     return recombinacao
 
   def novaGeracao(self, sobreviventes, recombinacao):
@@ -117,6 +148,7 @@ class PopulacaoController:
 
     populacao = Populacao(individuos, 1)
     self.ordenarPopulacao(populacao)
+    del individuos
     
     return populacao
 

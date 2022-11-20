@@ -14,7 +14,7 @@ class SolucaoController:
     """
 
     listaNums = [0, 1, 2, 3, 4]
-    solucao = [[], [] , [], [], []]
+    individuo = [[], [] , [], [], []]
 
     # laço para iterar os atributos
     for i in range(5):
@@ -22,11 +22,12 @@ class SolucaoController:
       shuffle(listaNums)
       # laço para iterar sobre a  
       for j in range(5):
-        solucao[j].append(listaNums[j])
+        individuo[j].append(listaNums[j])
 
     # Cada linha é uma casa, e cada coluna é um atributo
-    solucao = Solucao(solucao, id_sol)
+    solucao = Solucao(individuo, id_sol)
     self.fitness(solucao)
+    del individuo
 
     return solucao
 
