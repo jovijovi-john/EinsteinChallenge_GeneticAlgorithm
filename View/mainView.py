@@ -19,7 +19,7 @@ class View:
     for i in range(self.geracoes):
       
       if i == 0:
-        self.populacaoInicial = self.populacaoController.gerarPopulacaoInicial(1000000)
+        self.populacaoInicial = self.populacaoController.gerarPopulacaoInicial(100)
         populacao = self.populacaoInicial
     
       # self.mostrarPopulacao(populacao)
