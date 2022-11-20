@@ -9,11 +9,34 @@ class View:
   def __init__(self):
     self.solucaoController = SolucaoController()
     self.populacaoController = PopulacaoController()
-    self.terminou = False
-    self.acharPontuacao(15)
+    self.geracoes = 30
 
+    self.iniciarGeracoes()
 
-  def mostrarPopulacaoInicial(self, pontuacao):
+  def iniciarGeracoes(self):
+
+    for i in range(self.geracoes):
+      
+      if i == 0:
+        self.populacaoInicial = self.populacaoController.gerarPopulacaoInicial(1000000)
+        populacao = self.populacaoInicial
+    
+      # self.mostrarPopulacao(populacao)
+      melhor = self.populacaoController.melhorIndividuo(populacao)
+        
+      print(f"A pontuação do melhor indivíduo da geração {i} é {melhor.pontuacao}")
+
+      if melhor.pontuacao == 15:
+        self.mostrarIndividuo(melhor)
+        break
+
+      sobreviventes = self.populacaoController.sobrevivencia25_25(populacao)
+      recombinacao = self.populacaoController.recombinacao(sobreviventes)
+      sobreviventes = self.populacaoController.sobrevivencia50(populacao)
+
+      populacao = self.populacaoController.novaGeracao(sobreviventes, recombinacao)
+
+  def mostrarPopulacao(self, populacao):
     self.clearTerminal()
 
     print(f"\033[1;35m{'===' * 10} \033[m")
@@ -21,17 +44,15 @@ class View:
     print(f"\033[1;35m{'===' * 10} \033[m\n")
 
     print(f"\033[1;32m{'===' * 10}\033[m")
-    for solucao in self.populacaoInicial.individuos:
-      if (solucao.pontuacao >= pontuacao):  
-        print(f"pontuação: {solucao.pontuacao}")
-        self.mostrarIndividuo(solucao)
-        print(f"\033[1;32m{'===' * 10}\033[m")
-        self.terminou = True
-        break
+    for solucao in populacao.individuos:
+      print(f"pontuação: \033[1;33m{solucao.pontuacao}\033[m\n")
+
+      self.mostrarIndividuo(solucao)
+      print(f"\033[1;32m{'===' * 10}\033[m")
 
   def mostrarIndividuo(self, solucao: Solucao):
     for index, pos in enumerate(solucao.individuo):
-      print(f"  casa {index + 1} = {pos}")
+      print(f"{' ' * 2} casa {index + 1} = {pos}")
 
   def clearTerminal(self):
     """
@@ -41,7 +62,7 @@ class View:
   
   def acharPontuacao(self, pontuacao):
       while True:
-        self.populacaoInicial = self.populacaoController.gerarPopulacao(1000)
+        self.populacaoInicial = self.populacaoController.gerarPopulacaoInicial(1000)
         self.mostrarPopulacaoInicial(pontuacao)
         if self.terminou == True:
           break

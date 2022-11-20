@@ -7,7 +7,7 @@ class SolucaoController:
   def __init__(self):
     pass
 
-  def gerarSolucaoAleatoria(self):
+  def gerarSolucaoAleatoria(self, id_sol):
 
     """
       Retorna uma solução aleatória
@@ -25,7 +25,7 @@ class SolucaoController:
         solucao[j].append(listaNums[j])
 
     # Cada linha é uma casa, e cada coluna é um atributo
-    solucao = Solucao(solucao)
+    solucao = Solucao(solucao, id_sol)
     self.fitness(solucao)
 
     return solucao

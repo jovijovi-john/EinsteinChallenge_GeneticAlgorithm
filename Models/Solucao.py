@@ -1,5 +1,5 @@
 class Solucao:
-  def __init__(self, solucao):
+  def __init__(self, solucao, id_param):
     
     self.cores = []
     self.nacionalidades = [] 
@@ -8,6 +8,7 @@ class Solucao:
     self.animais = []
 
     self.pontuacao = 0
+    self.id = id_param
 
     self.individuo = solucao
     self.instanciarSolucao(solucao)
