@@ -10,13 +10,14 @@ class View:
   def __init__(self):
     self.solucaoController = SolucaoController()
     self.populacaoController = PopulacaoController()
-    self.geracoes = 1000
+    self.geracoes = 1
 
     self.iniciarGeracoes()
     # self.loopGeracaoInicial()
 
   def iniciarGeracoes(self):
-
+    #Começa o processo de busca pela solução até a geração self.geracao
+    self.clearTerminal()
     for i in range(self.geracoes):
       
       if i == 0:
@@ -28,8 +29,10 @@ class View:
       
       
       self.mostrarMelhorIndividuo(melhor, i)
-      
-        
+      self.populacaoController.gerarMutacao(melhor)
+      print("Após a mutação: ")
+      self.mostrarMelhorIndividuo(melhor, i)
+
       if melhor.pontuacao == 15:
         break
       
@@ -74,7 +77,6 @@ class View:
       del self.populacao
 
   def mostrarPopulacao(self, populacao):
-
     """
       Função que mostra a população passada por parâmetro
     """
@@ -93,11 +95,14 @@ class View:
       print(f"\033[1;32m{'===' * 10}\033[m")
 
   def mostrarIndividuo(self, solucao: Solucao):
+    """
+      Mostra o individuo em forma de matriz, onde as colunas sao os atributos e as linhas são as casas
+    """
     for index, pos in enumerate(solucao.individuo):
       print(f"{' ' * 2} casa {index + 1} = {pos}")
 
   def mostrarIndividuoText(self, solucao: Solucao):
-
+    # Mostra a matriz de solução do individuo de maneira traduzida, ao invés de usar os números
     attributos = list(codificacao.keys())
     print('--' * 45)
     print("           ", end="")
@@ -108,10 +113,13 @@ class View:
     print('\n')
 
     for i, casa in enumerate(solucao.individuo):
-
+      # iterando sobre as casas
       print(f"   casa {i}: ", end="")
+
       for j, atributo in enumerate(casa):
+        # iterando sobre os atributos de cada casa
         if j == 0:
+          # mostrando o atributo de cor de forma colorida
           if codificao_invertida[j][atributo] == "vermelha":
             print("\033[1;31m", end="")
           elif codificao_invertida[j][atributo] == "branca":

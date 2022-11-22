@@ -1,7 +1,8 @@
 from Models.Populacao import Populacao
 from Models.Solucao import Solucao
 from Controllers.SolucaoController import SolucaoController
-from random import shuffle
+
+from random import shuffle, randint
 
 class PopulacaoController:
   
@@ -10,11 +11,13 @@ class PopulacaoController:
     pass
   
   def gerarPopulacaoInicial(self, tamanhoPop):
-    
+    """
+      Gera uma população de soluções aleatórias de tamanho tamanhoPop 
+    """
     individuos = []
 
     for i in range(tamanhoPop):
-      individuo = self.solucaoController.gerarSolucaoAleatoria(i)
+      individuo = self.solucaoController.gerarSolucaoAleatoria()
       individuos.append(individuo)
       del individuo
 
@@ -26,10 +29,13 @@ class PopulacaoController:
     return populacao
 
   def melhorIndividuo(self, populacao: Populacao):
+    """
+      Retorna o melhor indivíduo de uma população
+    """
     solucao = populacao.individuos[0]
     individuos = solucao.individuo.copy()
 
-    melhor = Solucao(individuos, solucao.id)
+    melhor = Solucao(individuos)
     melhor.pontuacao = solucao.pontuacao
 
     return melhor
@@ -67,7 +73,7 @@ class PopulacaoController:
     return sobreviventes
 
   def recombinacao(self, sobreviventes):
-    """    
+    """
       pai: [a, b, c , d, e]
       mae: [f, g, h, i, j]
 
@@ -84,9 +90,6 @@ class PopulacaoController:
       
       sobrevivente1 = sobreviventes_shuffle[i].individuo.copy()
       sobrevivente2 = sobreviventes_shuffle[i + 1].individuo.copy()
-
-      id_sobrevivente1 = sobreviventes_shuffle[i].id
-      id_sobrevivente2 = sobreviventes_shuffle[i + 1].id
 
       filho1 = []
       filho2 = []
@@ -111,8 +114,8 @@ class PopulacaoController:
       del casa_f1
       del casa_f2
       
-      solucao1 = Solucao(filho1, 0)
-      solucao2 = Solucao(filho2, 0)
+      solucao1 = Solucao(filho1)
+      solucao2 = Solucao(filho2)
 
       del filho1
       del filho2
@@ -155,3 +158,29 @@ class PopulacaoController:
   def ordenarPopulacao(self, populacao: Populacao):
     # ordenando decrescentemente os individuos por pontuação
     populacao.individuos.sort(key=lambda x: x.pontuacao, reverse=True) 
+  
+  def gerarMutacao(self, solucao: Solucao):
+
+    casa1 = randint(0, 4)
+    casa2 = randint(0, 4)
+    
+    while True:
+      # Garantindo que as duas casas serão diferentes
+      if casa2 == casa1:
+        casa2 = randint(0, 4)
+      else:
+        break
+
+    atributo = randint(0, 4)
+
+    individuo1 = solucao.individuo[casa1]
+    individuo2 = solucao.individuo[casa2]
+
+    individuoAux = individuo1.copy()
+    individuoAux2 = individuo2.copy()
+
+    solucao.individuo[casa1][atributo] = individuoAux2[atributo]
+    solucao.individuo[casa2][atributo] = individuoAux[atributo]
+
+    self.solucaoController.fitness(solucao)
+

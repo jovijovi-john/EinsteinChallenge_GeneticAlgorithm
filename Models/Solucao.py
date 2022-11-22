@@ -1,8 +1,7 @@
 class Solucao:
-  def __init__(self, solucao, id_param):
+  def __init__(self, solucao):
     
     self.pontuacao = 0
-    self.id = id_param
 
     self.individuo = solucao
 
@@ -12,3 +11,6 @@ class Solucao:
   
   def decrementarPontuacao(self):
     self.pontuacao = self.pontuacao - 1
+
+  def zerarPontuacao(self):
+    self.pontuacao = 0

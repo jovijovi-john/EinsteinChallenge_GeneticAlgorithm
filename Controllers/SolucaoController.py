@@ -7,7 +7,7 @@ class SolucaoController:
   def __init__(self):
     pass
 
-  def gerarSolucaoAleatoria(self, id_sol):
+  def gerarSolucaoAleatoria(self):
 
     """
       Retorna uma solução aleatória
@@ -25,9 +25,8 @@ class SolucaoController:
         individuo[j].append(listaNums[j])
 
     # Cada linha é uma casa, e cada coluna é um atributo
-    solucao = Solucao(individuo, id_sol)
+    solucao = Solucao(individuo)
     self.fitness(solucao)
-    del individuo
 
     return solucao
 
@@ -43,7 +42,7 @@ class SolucaoController:
       4: animais
     """
 
-    
+    solucao.zerarPontuacao()
 
     #o noruegues mora na primeira casa (9)
     if (solucao.individuo[0][1] == codificacao["nacionalidades"]["norueguês"]):
