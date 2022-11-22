@@ -6,6 +6,7 @@ codificacao = {
         "branca": 2,
         "verde": 3,
         "vermelha": 4
+        ## 8
     },
 
 
@@ -16,6 +17,7 @@ codificacao = {
         "inglês": 2,
         "norueguês": 3,
         "sueco": 4
+        ## 11
     },
 
     "bebidas": #2
@@ -25,6 +27,7 @@ codificacao = {
         "chá": 2,
         "cerveja": 3,
         "leite": 4
+        ## 7
     },
 
     "cigarros": #3
@@ -34,6 +37,7 @@ codificacao = {
         "dunhill": 2,
         "pall mall": 3,
         "prince": 4
+        ##11
     },
 
     "animais": #4
@@ -43,5 +47,6 @@ codificacao = {
         "gatos": 2,
         "pássaros": 3,
         "peixes": 4
+        ##9
     }
 }

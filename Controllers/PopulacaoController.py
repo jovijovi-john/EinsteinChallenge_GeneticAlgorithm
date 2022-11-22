@@ -111,8 +111,8 @@ class PopulacaoController:
       del casa_f1
       del casa_f2
       
-      solucao1 = Solucao(filho1, f"{id_sobrevivente1}_{id_sobrevivente2}")
-      solucao2 = Solucao(filho2, f"{id_sobrevivente2}_{id_sobrevivente1}")
+      solucao1 = Solucao(filho1, 0)
+      solucao2 = Solucao(filho2, 0)
 
       del filho1
       del filho2
