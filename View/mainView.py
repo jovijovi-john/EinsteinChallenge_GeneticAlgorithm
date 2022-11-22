@@ -10,7 +10,7 @@ class View:
   def __init__(self):
     self.solucaoController = SolucaoController()
     self.populacaoController = PopulacaoController()
-    self.geracoes = 1
+    self.geracoes = 10000
 
     self.iniciarGeracoes()
     # self.loopGeracaoInicial()
@@ -18,6 +18,9 @@ class View:
   def iniciarGeracoes(self):
     #Começa o processo de busca pela solução até a geração self.geracao
     self.clearTerminal()
+
+    ultimasPontuacoes = []
+
     for i in range(self.geracoes):
       
       if i == 0:
@@ -27,12 +30,37 @@ class View:
       # self.mostrarPopulacao(populacao)
       melhor = self.populacaoController.melhorIndividuo(populacao)
       
-      
-      self.mostrarMelhorIndividuo(melhor, i)
-      self.populacaoController.gerarMutacao(melhor)
-      print("Após a mutação: ")
+      self.populacaoController.gerarMutacaoPopulacao(populacao, 3)
+
       self.mostrarMelhorIndividuo(melhor, i)
 
+      if len(ultimasPontuacoes) < 5:
+          ultimasPontuacoes.append(melhor.pontuacao)
+      else:
+        # preencheu as 5 ultimas pontuacoes
+        mutacaoGeral = True
+
+        for pontuacao in ultimasPontuacoes:
+          # se a pontuacao atual for diferente das 5 ultimas
+          if pontuacao !=  melhor.pontuacao:
+            mutacaoGeral = False
+        
+        if mutacaoGeral == True:
+          print("Mutação nos 25% piores individuos")
+          fracao = populacao.tamanhoPop // 4
+          final = populacao.tamanhoPop
+
+          for i in range(fracao, final):
+            individuo = populacao.individuos[i]
+            self.populacaoController.gerarMutacao(individuo)
+
+          self.populacaoController.ordenarPopulacao(populacao)        
+
+        ultimasPontuacoes.pop(0)
+        ultimasPontuacoes.append(melhor.pontuacao)
+
+      print(f"ultimas pontuações: {ultimasPontuacoes}")
+        
       if melhor.pontuacao == 15:
         break
       

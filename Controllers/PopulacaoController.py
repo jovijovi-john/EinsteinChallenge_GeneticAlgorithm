@@ -159,28 +159,48 @@ class PopulacaoController:
     # ordenando decrescentemente os individuos por pontuação
     populacao.individuos.sort(key=lambda x: x.pontuacao, reverse=True) 
   
+  def gerarMutacaoPopulacao(self, populacao: Populacao, probabilidade: int):
+    
+    num_sorteado = randint(1, 100)
+
+    if 1 <= num_sorteado <= probabilidade :
+      
+      print("Aconteceu uma mutação na população")
+      # pegando um indivíduo aleatório da população
+      individuoIndex = randint(0, populacao.tamanhoPop - 1)
+      
+      # individuo a ser mutado
+      solucao = populacao.individuos[individuoIndex]
+
+      self.gerarMutacao(solucao)
+
+      # reordenando a população
+      self.ordenarPopulacao(populacao)
+
+
   def gerarMutacao(self, solucao: Solucao):
 
-    casa1 = randint(0, 4)
-    casa2 = randint(0, 4)
-    
-    while True:
-      # Garantindo que as duas casas serão diferentes
-      if casa2 == casa1:
-        casa2 = randint(0, 4)
-      else:
-        break
+      casa1 = randint(0, 4)
+      casa2 = randint(0, 4)
+      
+      while True:
+        # Garantindo que as duas casas serão diferentes
+        if casa2 == casa1:
+          casa2 = randint(0, 4)
+        else:
+          break
 
-    atributo = randint(0, 4)
+      atributo = randint(0, 4)
 
-    individuo1 = solucao.individuo[casa1]
-    individuo2 = solucao.individuo[casa2]
+      individuo1 = solucao.individuo[casa1]
+      individuo2 = solucao.individuo[casa2]
 
-    individuoAux = individuo1.copy()
-    individuoAux2 = individuo2.copy()
+      individuoAux = individuo1.copy()
+      individuoAux2 = individuo2.copy()
 
-    solucao.individuo[casa1][atributo] = individuoAux2[atributo]
-    solucao.individuo[casa2][atributo] = individuoAux[atributo]
+      solucao.individuo[casa1][atributo] = individuoAux2[atributo]
+      solucao.individuo[casa2][atributo] = individuoAux[atributo]
 
-    self.solucaoController.fitness(solucao)
+      # atualizando a pontuação do indivíduo
+      self.solucaoController.fitness(solucao)
 
